@@ -130,6 +130,28 @@ namespace lab_1
             return v1 * new Fraction(v2.denominator, v2.numerator);
         }
 
-       
+        public int CeilToInt()
+        {
+            if (denominator == 0)
+            {
+                throw new DivideByZeroException();
+            }
+            int fullPart = numerator / denominator;
+            int reminder = numerator % denominator;
+            if (reminder != 0)
+            {
+                fullPart += 1;
+            }
+            return fullPart;
+        }
+
+        public int FloorToInt()
+        {
+            if (denominator == 0)
+            {
+                throw new DivideByZeroException();
+            }
+            return numerator / denominator;
+        }
     }
 }
