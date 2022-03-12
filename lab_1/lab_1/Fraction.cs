@@ -74,5 +74,20 @@ namespace lab_1
                 return $"{numerator}/{denominator}";
             }
         }
+        public int CompareTo(Fraction other)
+        {
+            if (this.denominator == other.denominator)
+            {
+                return this.numerator.CompareTo(other.numerator);
+            }
+            else
+            {
+                int thisNumerator = this.numerator * other.denominator;
+                int otherNumerator = other.numerator * this.denominator;
+                return thisNumerator.CompareTo(otherNumerator);
+            }
+        }
+
+        
     }
 }
