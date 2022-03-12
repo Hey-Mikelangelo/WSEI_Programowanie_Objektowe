@@ -88,6 +88,48 @@ namespace lab_1
             }
         }
 
-        
+        public static Fraction operator -(Fraction v)
+        {
+            return new Fraction(-v.numerator, v.denominator);
+        }
+
+        public static Fraction operator +(Fraction v1, Fraction v2)
+        {
+            if (v1.denominator == 0 || v2.denominator == 0)
+            {
+                throw new DivideByZeroException("Fraction denominator is zero");
+            }
+            if (v1.denominator == v2.denominator)
+            {
+                int resultNumerator = v1.numerator + v2.numerator;
+                int resultDenominator = v1.denominator;
+                return new Fraction(resultNumerator, resultDenominator);
+            }
+            else
+            {
+                int resultNumerator = (v1.numerator * v2.denominator) + (v2.numerator * v1.denominator);
+                int resultDenominator = v1.denominator * v2.denominator;
+                return new Fraction(resultNumerator, resultDenominator);
+            }
+        }
+
+        public static Fraction operator -(Fraction v1, Fraction v2)
+        {
+            return v1 + (-v2);
+        }
+
+        public static Fraction operator *(Fraction v1, Fraction v2)
+        {
+            int resultNumerator = v1.numerator * v2.numerator;
+            int resultDenominator = v1.denominator * v2.denominator;
+            return new Fraction(resultNumerator, resultDenominator);
+        }
+
+        public static Fraction operator /(Fraction v1, Fraction v2)
+        {
+            return v1 * new Fraction(v2.denominator, v2.numerator);
+        }
+
+       
     }
 }
