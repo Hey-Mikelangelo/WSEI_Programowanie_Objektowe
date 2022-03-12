@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Diagnostics.CodeAnalysis;
 
 namespace lab_1
 {
-    public readonly struct Fraction : IEquatable<Fraction>
+    public readonly struct Fraction : IEquatable<Fraction>, IComparable<Fraction>
     {
         private readonly int denominator;
         private readonly int numerator;
@@ -11,13 +10,44 @@ namespace lab_1
         public float Denominator => denominator;
         public float Numerator => numerator;
 
-        public Fraction(int denominator, int numerator)
+        /// <summary>
+        /// Creates a Fraction with a numerator and denominator
+        /// </summary>
+        /// <param name="numerator"></param>
+        /// <param name="denominator"></param>
+        /// <exception cref="DivideByZeroException">throws an exeption if denominator is zero</exception>
+        public Fraction(int numerator, int denominator)
         {
-            int greatestCommonDivisor = MathHelpers.GetGreatestCommonDivisor(denominator, numerator);
-            this.denominator = denominator / greatestCommonDivisor;
-            this.numerator  = numerator / greatestCommonDivisor;
+            if (denominator == 0)
+            {
+                throw new DivideByZeroException("Denominator of Fraction is 0");
+            }
+            if (numerator < 0 && denominator < 0)
+            {
+                numerator = -numerator;
+                denominator = -denominator;
+            }
+            if(numerator == 0)
+            {
+                denominator = 1;
+            }
+            else
+            {
+                int greatestCommonDivisor = MathHelpers.GetGreatestCommonDivisor(numerator, denominator);
+                if (greatestCommonDivisor != 1)
+                {
+                    denominator /= greatestCommonDivisor;
+                    numerator /= greatestCommonDivisor;
+                }
+            }
+            this.numerator = numerator;
+            this.denominator = denominator;
         }
 
+        /// <summary>
+        /// Creates a Fraction using values of other Fraction
+        /// </summary>
+        /// <param name="other"></param>
         public Fraction(Fraction other)
         {
             this.denominator = other.denominator;
