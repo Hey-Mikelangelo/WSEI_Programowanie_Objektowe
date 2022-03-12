@@ -61,7 +61,18 @@ namespace lab_1
 
         public override string ToString()
         {
-            return $"{numerator}/{denominator}";
+            if (denominator == 0)
+            {
+                return "Not valid fraction, division by 0";
+            }
+            else if (numerator == 0)
+            {
+                return "0";
+            }
+            else
+            {
+                return $"{numerator}/{denominator}";
+            }
         }
     }
 }
