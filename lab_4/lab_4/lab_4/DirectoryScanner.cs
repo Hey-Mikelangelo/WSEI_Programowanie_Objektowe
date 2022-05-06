@@ -123,7 +123,16 @@ namespace lab_4
 
         private List<File> GetFilesRecursive(string directoryPath)
         {
-            var subDirectoriesPaths = Directory.GetDirectories(directoryPath);
+            string[] subDirectoriesPaths;
+            try
+            {
+                subDirectoriesPaths =  Directory.GetDirectories(directoryPath);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return new List<File>();
+            }
 
             int subDirectoriesCount = subDirectoriesPaths.Length;
 
@@ -570,13 +579,13 @@ namespace lab_4
             int leadingTabsCount = 0)
         {
             StringBuilder stringBuilder = new StringBuilder();
-            string labelRow = GetRowLong(leadingTabsCount, string.Empty, "[size]");
+            string labelRow = GetRowLong(leadingTabsCount, string.Empty, _sizeLabel, _pathLabel);
             stringBuilder.Append(labelRow);
             int i = 0;
             foreach (var item in filesOrderedBySize)
             {
                 if (i > maxItemsToShow) break;
-                string row = GetRowLong(leadingTabsCount, item.name, FormatSize(item.lenght));
+                string row = GetRowLong(leadingTabsCount, item.name, FormatSize(item.lenght), item.path);
                 stringBuilder.Append(row);
                 i++;
 
