@@ -81,16 +81,15 @@ namespace lab_4
             string filesStatsByTypesText = GetFilesStatsByTypesText(filesStatsByTypes, 2);
 
             string filesStatsByExtensionsText = GetFilesStatsByExtensionsText(
-                    filesStatsByExtensions, showAllExtensions, leadingTabsCount: 2);
+                    filesStatsByExtensions, showAllExtensions, fileExtensionsToShow, leadingTabsCount: 2);
           
             string filesStatsBySizeText = GetFilesStatsBySizeText(filesStatsBySizes, 2);
 
             string filesCountsByFirstLetterText = GetFilesCountsByFirstLetterText(filesCountsByFirstLetter, 1);
 
-            int maxItemsToShowCount = showAllExtensions ? maxFilesToShowCount : 20;
-            string filesOrderedByName = GetFilesOrderedByNameText(sortedByNameFiles, maxItemsToShow: maxItemsToShowCount, 1);
+            string filesOrderedByName = GetFilesOrderedByNameText(sortedByNameFiles, maxItemsToShow: maxFilesToShowCount, 1);
 
-            string filesOrderedBySize = GetFilesOrderedBySizeText(sortedBySizeFiles, maxItemsToShow: maxItemsToShowCount, 1);
+            string filesOrderedBySize = GetFilesOrderedBySizeText(sortedBySizeFiles, maxItemsToShow: maxFilesToShowCount, 1);
 
             Console.WriteLine("Nodes:");
             Console.Write(directoryNodesStatsText);
