@@ -13,6 +13,14 @@ namespace ExpenseMonitoringApp
         public ExpensesDbContext(string connectionString)
         {
             this.ConnectionString = connectionString;
+            
+            bool createdNewDatabase = Database.EnsureCreated();
+            if (createdNewDatabase)
+            {
+                Categories.Add(new Category("Food"));
+                MoneyTypes.Add(new MoneyType("PLN"));
+                SaveChanges();
+            }
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
