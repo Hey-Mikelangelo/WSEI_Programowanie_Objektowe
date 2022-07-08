@@ -20,6 +20,7 @@ namespace ExpenseMonitoringApp
     /// </summary>
     public partial class ExpenseEntryControl : UserControl
     {
+        public event System.Action<long>? OnEntryDeleteClicked;
         public string Category
         {
             get { return (string)GetValue(CategoryProperty); }
@@ -69,16 +70,34 @@ namespace ExpenseMonitoringApp
             DependencyProperty.Register("MoneyType", typeof(string), typeof(ExpenseEntryControl), new PropertyMetadata("Money"));
 
         public long EntryIndex { get; set; }
-        public ExpenseEntryControl(long entryIndex)
+        public ExpenseEntryControl(long entryIndex, bool withDeleteButton)
         {
             InitializeComponent();
             this.DataContext = this;
             EntryIndex = entryIndex;
+            if(withDeleteButton == false)
+            {
+                FieldsContainer.Children.Remove(DeleteButton);
+                FieldsContainer.ColumnDefinitions.RemoveAt(FieldsContainer.ColumnDefinitions.Count - 1);
+            }
+            else
+            {
+                DeleteButton.Click += DeleteButton_Click;
+            }
         }
-        public ExpenseEntryControl()
+        ~ExpenseEntryControl()
         {
-            InitializeComponent();
-            this.DataContext = this;
+            DeleteButton.Click -= DeleteButton_Click;
+            OnEntryDeleteClicked = null;
+        }
+
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("Delete?", "Delete Confirmation", System.Windows.MessageBoxButton.YesNo);
+            if(messageBoxResult == MessageBoxResult.Yes)
+            {
+                OnEntryDeleteClicked?.Invoke(EntryIndex);
+            }
         }
     }
 }

@@ -7,18 +7,19 @@
              mc:Ignorable="d" 
              d:DesignHeight="100" d:DesignWidth="305.778">
     <Grid>
-        <Grid Background="White" Width="auto">
+        <Grid x:Name="FieldsContainer" Background="White" Width="auto">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
+                <ColumnDefinition x:Name="DeleteButtonColumn" Width="*"/>
             </Grid.ColumnDefinitions>
-
-            <TextBlock x:Name="CategoryText" Grid.Column="0" MinWidth="50" Text="{Binding Category}" Background="#FFC8C8C8" Grid.ColumnSpan="4"/>
-            <TextBlock x:Name="AmountText" Grid.Column="1" MinWidth="50" Text="{Binding Amount}" Background="#FFC68181" Grid.ColumnSpan="4"/>
-            <TextBlock x:Name="MoneyTypeText" Grid.Column="2" MinWidth="50" Text="{Binding MoneyType}" Background="#AF795757" Grid.ColumnSpan="4"/>
-            <TextBlock x:Name="DateText" Grid.Column="3" MinWidth="50" Text="{Binding Date}" Background="#FFDDAEAE" Grid.ColumnSpan="4"/>
+            <TextBlock x:Name="CategoryText" Grid.Column="0" MinWidth="50" Text="{Binding Category}" Background="#FFC8C8C8"/>
+            <TextBlock x:Name="AmountText" Grid.Column="1" MinWidth="50" Text="{Binding Amount}" Background="#FFC68181"/>
+            <TextBlock x:Name="MoneyTypeText" Grid.Column="2" MinWidth="50" Text="{Binding MoneyType}" Background="#AF795757"/>
+            <TextBlock x:Name="DateText" Grid.Column="3" MinWidth="50" Text="{Binding Date}" Background="#FFDDAEAE"/>
+            <Button x:Name="DeleteButton" Grid.Column="4" Background="#FFED3C3C">Delete</Button>
         </Grid>
     </Grid>
 </UserControl>

@@ -86,10 +86,6 @@ namespace ExpenseMonitoringApp
         private ExpenseEntryControl[] entries = new ExpenseEntryControl[3];
         public ExpenseEntryControl[] GetExpenseEntries()
         {
-            entries[0] ??= new ExpenseEntryControl() { Category = "Food", Amount = "100" };
-            entries[1] ??= new ExpenseEntryControl() { Category = "Rent", Amount = 500.ToString() };
-            entries[2] ??= new ExpenseEntryControl() { Category = "Car", Amount = 200.ToString() };
-
             return entries;
         }
     }

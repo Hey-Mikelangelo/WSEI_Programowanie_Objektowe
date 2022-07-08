@@ -45,6 +45,16 @@
                     </Grid>
                 </Border>
                 <Border Padding="10,10,10,10">
+                    <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="43" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="Comment" VerticalAlignment="Stretch" FontSize="22" TextAlignment="Left" Margin="0,0,15,0"/>
+                        <TextBox x:Name="CommentTextBox" TextWrapping="Wrap" Grid.Column="1" Text="" Width="auto" HorizontalAlignment="Stretch" FontSize="24"/>
+                    </Grid>
+                </Border>
+                <Border Padding="10,10,10,10">
                     <Button x:Name="AddEntryButton">Add Entry</Button>
                 </Border>
             </StackPanel>

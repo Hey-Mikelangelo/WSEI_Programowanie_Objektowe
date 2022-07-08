@@ -7,7 +7,7 @@ namespace ExpenseMonitoringApp
         public DbSet<Category> Categories { get; set; }
         public DbSet<Entry> Entries { get; set; }
         public DbSet<MoneyType> MoneyTypes { get; set; }
-
+        public DbSet<Comment> Comments { get; set; }
         public string ConnectionString { get; }
 
         public ExpensesDbContext(string connectionString)
