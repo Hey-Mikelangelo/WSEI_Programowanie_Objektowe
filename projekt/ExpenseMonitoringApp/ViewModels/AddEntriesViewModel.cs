@@ -2,22 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
+using ExpenseMonitoringApp.Helpers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
-namespace ExpenseMonitoringApp
+namespace ExpenseMonitoringApp.ViewModels
 {
     public class AddEntriesViewModel
     {
-        public event System.Action OnEntriesChanged;
-        public AddEntriesViewModel()
-        {
-            
-        }
+        public event Action OnEntriesChanged;
 
         public List<ExpenseEntryControl> GetEntryControls(bool withDeleteButton = true)
         {
-            using(var db = Database.GetNewDbContext())
+            using (var db = Database.GetNewDbContext())
             {
                 db.Entries
                     .Include(x => x.Category)
@@ -32,7 +29,7 @@ namespace ExpenseMonitoringApp
                 }
                 return entriesControls;
             }
-            
+
         }
 
         private void DeleteEntry(long entryId)
@@ -68,9 +65,18 @@ namespace ExpenseMonitoringApp
                 }
 
                 decimal moneyAmount;
+                if(moneyCountString.Length == 0)
+                {
+                    return;
+                }
                 if (decimal.TryParse(moneyCountString, out moneyAmount) == false)
                 {
                     MessageBox.Show($"{moneyCountString} is not a decimal number");
+                    return;
+                }
+                if(moneyAmount <= 0)
+                {
+                    MessageBox.Show($"Money count cannot be less than 0");
                     return;
                 }
                 long categoryId = selectedCategory.Id;

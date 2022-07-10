@@ -1,19 +1,17 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using ExpenseMonitoringApp.Db;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 
-namespace ExpenseMonitoringApp
+namespace ExpenseMonitoringApp.Helpers
 {
     public static class Database
     {
-        public static ExpensesDbContext GetNewDbContext() => new ExpensesDbContext(ConnectionString);
-
-        public static readonly string DatabasePath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"database\ExpensesDB.db");
-        public static readonly string ConnectionString = @$"Data Source={Database.DatabasePath};";
+        public static ExpensesDbContext GetNewDbContext() => new ExpensesDbContext();
 
         public static List<string> GetMoneyOwnersNames()
         {
-            using (var db = Database.GetNewDbContext())
+            using (var db = GetNewDbContext())
             {
                 List<string> moneyOwnersNames = new List<string>();
 
@@ -30,7 +28,7 @@ namespace ExpenseMonitoringApp
         public static List<string> GetCategoryNames()
         {
             List<string> categoriesNames = new List<string>();
-            using (var db = Database.GetNewDbContext())
+            using (var db = GetNewDbContext())
             {
                 db.Categories.Load();
                 var categories = db.Categories;

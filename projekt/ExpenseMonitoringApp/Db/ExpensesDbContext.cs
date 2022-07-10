@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System;
+using System.IO;
 
-namespace ExpenseMonitoringApp
+namespace ExpenseMonitoringApp.Db
 {
     public class ExpensesDbContext : DbContext
     {
@@ -8,23 +10,26 @@ namespace ExpenseMonitoringApp
         public DbSet<Entry> Entries { get; set; }
         public DbSet<MoneyType> MoneyOwners { get; set; }
         public DbSet<Comment> Comments { get; set; }
-        public string ConnectionString { get; }
 
-        public ExpensesDbContext(string connectionString)
+        public static readonly string DatabasePath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"database\ExpensesDB.db");
+        public static readonly string ConnectionString = @$"Data Source={DatabasePath};";
+        public ExpensesDbContext()
         {
-            this.ConnectionString = connectionString;
-            
+            string directoryPath = Path.GetDirectoryName(DatabasePath);
+            if(Directory.Exists(directoryPath) == false)
+            {
+                Directory.CreateDirectory(directoryPath);
+            }
             bool createdNewDatabase = Database.EnsureCreated();
             if (createdNewDatabase)
             {
-                Categories.Add(new Category("Food"));
                 SaveChanges();
             }
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
-            options.UseSqlite(this.ConnectionString);
+            options.UseSqlite(ConnectionString);
         }
     }
 

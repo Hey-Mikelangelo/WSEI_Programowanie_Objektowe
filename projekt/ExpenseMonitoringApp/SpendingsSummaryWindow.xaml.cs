@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using ExpenseMonitoringApp.Helpers;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -40,7 +41,7 @@ namespace ExpenseMonitoringApp
         private void ButtonGoToAddingEntriesWindow_Click(object sender, RoutedEventArgs e)
         {
             AddEntriesWindow addEntriesWindow = new AddEntriesWindow();
-            addEntriesWindow.Show();            
+            addEntriesWindow.Show();
             addEntriesWindow.CopySizeAndPosition(this);
             Close();
         }
@@ -75,8 +76,8 @@ namespace ExpenseMonitoringApp
                     .Include(x => x.Comment)
                     .Load();
 
-                System.DateTime fromDate = DatePickerFrom.SelectedDate.Value;
-                System.DateTime toDate = DatePickerTo.SelectedDate.Value;
+                DateTime fromDate = DatePickerFrom.SelectedDate.Value;
+                DateTime toDate = DatePickerTo.SelectedDate.Value;
 
                 var entries = db.Entries.Where(x => x.CreationTime <= toDate && x.CreationTime >= fromDate);
                 if (MoneyOwnerComboBox.SelectedIndex != 0)

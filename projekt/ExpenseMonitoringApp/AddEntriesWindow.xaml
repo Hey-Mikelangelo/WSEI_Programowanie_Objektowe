@@ -17,7 +17,7 @@
                 <Border Padding="10,10,10,10">
                     <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="43" >
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="120"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0" HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="Category" VerticalAlignment="Stretch" FontSize="22" TextAlignment="Left" Margin="0,0,15,0"/>
@@ -26,19 +26,19 @@
                     </Grid>
                 </Border>
                 <Border Padding="10,10,10,10">
-                    <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="43" >
+                    <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="auto" >
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="120"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="MoneyOwner" VerticalAlignment="Stretch" FontSize="22" TextAlignment="Left" Margin="0,0,15,0"/>
+                        <TextBlock Grid.Column="0" HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="Owner" VerticalAlignment="Stretch" FontSize="22" TextAlignment="Left" Margin="0,0,15,0"/>
                         <ComboBox x:Name="MoneyOwnerComboBox" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="22"/>
                     </Grid>
                 </Border>
                 <Border Padding="10,10,10,10">
-                    <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="43" >
+                    <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="auto" >
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="120"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0" HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="Amount" VerticalAlignment="Stretch" FontSize="22" TextAlignment="Left" Margin="0,0,15,0"/>
@@ -46,13 +46,13 @@
                     </Grid>
                 </Border>
                 <Border Padding="10,10,10,10">
-                    <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="43" >
+                    <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="auto" >
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="120"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0" HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="Comment" VerticalAlignment="Stretch" FontSize="22" TextAlignment="Left" Margin="0,0,15,0"/>
-                        <TextBox x:Name="CommentTextBox" TextWrapping="Wrap" Grid.Column="1" Text="" Width="auto" HorizontalAlignment="Stretch" FontSize="24"/>
+                        <TextBox x:Name="CommentTextBox" TextWrapping="Wrap" Grid.Column="1" Text="" MaxHeight="100" Width="auto" HorizontalAlignment="Stretch" FontSize="24"/>
                     </Grid>
                 </Border>
                 <Border Padding="10,10,10,10">

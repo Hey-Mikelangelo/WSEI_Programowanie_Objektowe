@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using ExpenseMonitoringApp.Helpers;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,16 +29,16 @@ namespace ExpenseMonitoringApp
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            using(var db = Database.GetNewDbContext())
+            using (var db = Database.GetNewDbContext())
             {
                 db.Categories.Load();
                 string newCategoryName = CategorynameTextBox.Text;
-                if(newCategoryName == String.Empty)
+                if (newCategoryName == string.Empty)
                 {
                     MessageBox.Show($"Category name canot be empty");
                     return;
                 }
-                if(db.Categories.Any(x => x.Name == newCategoryName))
+                if (db.Categories.Any(x => x.Name == newCategoryName))
                 {
                     MessageBox.Show($"Category with name \"{newCategoryName}\" already exists");
                     return;
@@ -46,7 +47,7 @@ namespace ExpenseMonitoringApp
                 db.Categories.Add(category);
                 db.SaveChanges();
             }
-            this.Close();
+            Close();
         }
     }
 }

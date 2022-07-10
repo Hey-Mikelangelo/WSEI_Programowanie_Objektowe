@@ -1,4 +1,6 @@
-﻿using Microsoft.Data.Sqlite;
+﻿using ExpenseMonitoringApp.Helpers;
+using ExpenseMonitoringApp.ViewModels;
+using Microsoft.Data.Sqlite;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -19,30 +21,13 @@ using System.Windows.Shapes;
 
 namespace ExpenseMonitoringApp
 {
-    public static class WindowExtensions
-    {
-        public static void CopySizeAndPosition(this Window window, Window anotherWindow)
-        {
-            window.Left = anotherWindow.Left;
-            window.Top = anotherWindow.Top;
-            window.Width = anotherWindow.Width;
-            window.Height = anotherWindow.Height;
-            if (anotherWindow.WindowState == WindowState.Maximized)
-            {
-                window.WindowState = WindowState.Maximized;
-            }
-        }
-    }
-    /// <summary>
-    /// Interaction logic for AddEntriesWindow.xaml
-    /// </summary>
     public partial class AddEntriesWindow : Window
     {
         private AddEntriesViewModel model = new AddEntriesViewModel();
         public AddEntriesWindow()
         {
             InitializeComponent();
-            this.DataContext = model;
+            DataContext = model;
             RefreshCategoryNames();
             RefreshMoneyOwners();
             RefreshEntries();
@@ -109,7 +94,7 @@ namespace ExpenseMonitoringApp
 
         private void RefreshEntries()
         {
-            
+
             var stackChildren = EntriesStack.Children;
             stackChildren.Clear();
             foreach (var item in model.GetEntryControls())

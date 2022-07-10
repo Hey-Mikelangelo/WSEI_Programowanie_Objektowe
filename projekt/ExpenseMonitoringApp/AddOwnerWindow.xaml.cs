@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using ExpenseMonitoringApp.Helpers;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,16 +16,13 @@ using System.Windows.Shapes;
 
 namespace ExpenseMonitoringApp
 {
-    /// <summary>
-    /// Interaction logic for AddOwnerWindow.xaml
-    /// </summary>
     public partial class AddOwnerWindow : Window
     {
         public AddOwnerWindow()
         {
             InitializeComponent();
             AddButton.Click += AddButton_Click;
-            
+
 
         }
         private void AddButton_Click(object sender, RoutedEventArgs e)
@@ -33,7 +31,7 @@ namespace ExpenseMonitoringApp
             {
                 db.MoneyOwners.Load();
                 string newOwnerName = OwnerNameTextBox.Text;
-                if (newOwnerName == String.Empty)
+                if (newOwnerName == string.Empty)
                 {
                     MessageBox.Show($"Owner name canot be empty");
                     return;
@@ -47,7 +45,7 @@ namespace ExpenseMonitoringApp
                 db.MoneyOwners.Add(owner);
                 db.SaveChanges();
             }
-            this.Close();
+            Close();
         }
     }
 }

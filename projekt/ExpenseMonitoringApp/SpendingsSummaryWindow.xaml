@@ -15,7 +15,7 @@
             <StackPanel>
                 <Button x:Name="ButtonGoToAddingEntriesWindow" Width="auto" HorizontalAlignment="Left">Go to adding entries window</Button>
                 <Border Padding="10,10,10,10">
-                    <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="43" >
+                    <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="auto" >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="auto"/>
                             <ColumnDefinition Width="*"/>
@@ -28,12 +28,12 @@
                     </Grid>
                 </Border>
                 <Border Padding="10,10,10,10">
-                    <Grid Height="30" >
+                    <Grid Height="auto" >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="auto"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" TextWrapping="Wrap" Text="Money Owner" VerticalAlignment="Center" TextAlignment="Left" FontSize="22" Margin="0,0,15,0" Height="30"/>
+                        <TextBlock Grid.Column="0" TextWrapping="Wrap" Text="Owner" VerticalAlignment="Center" TextAlignment="Left" FontSize="22" Margin="0,0,15,0" Height="30"/>
                         <ComboBox x:Name="MoneyOwnerComboBox" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="14"/>
                     </Grid>
                 </Border>
