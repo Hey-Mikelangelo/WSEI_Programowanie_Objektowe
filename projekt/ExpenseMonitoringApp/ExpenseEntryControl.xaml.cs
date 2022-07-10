@@ -27,7 +27,6 @@ namespace ExpenseMonitoringApp
             set { SetValue(CategoryProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for Categorya.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CategoryProperty =
             DependencyProperty.Register("Categorya", typeof(string), typeof(ExpenseEntryControl), 
                 new PropertyMetadata("Empty category"));
@@ -40,7 +39,6 @@ namespace ExpenseMonitoringApp
             set { SetValue(AmountProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for Amount.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty AmountProperty =
             DependencyProperty.Register("Amount", typeof(string), typeof(ExpenseEntryControl), new PropertyMetadata("0"));
 
@@ -52,22 +50,28 @@ namespace ExpenseMonitoringApp
             set { SetValue(DateProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for Date.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty DateProperty =
             DependencyProperty.Register("Date", typeof(DateTime), typeof(ExpenseEntryControl), new PropertyMetadata(DateTime.Now));
 
 
-
-
-        public string MoneyType
+        public string Comment
         {
-            get { return (string)GetValue(MoneyTypeProperty); }
-            set { SetValue(MoneyTypeProperty, value); }
+            get { return (string)GetValue(CommentProperty); }
+            set { SetValue(CommentProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for MoneyType.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty MoneyTypeProperty =
-            DependencyProperty.Register("MoneyType", typeof(string), typeof(ExpenseEntryControl), new PropertyMetadata("Money"));
+        public static readonly DependencyProperty CommentProperty =
+            DependencyProperty.Register("Comment", typeof(string), typeof(ExpenseEntryControl), new PropertyMetadata(string.Empty));
+
+
+        public string MoneyOwner
+        {
+            get { return (string)GetValue(MoneyOwnerProperty); }
+            set { SetValue(MoneyOwnerProperty, value); }
+        }
+
+        public static readonly DependencyProperty MoneyOwnerProperty =
+            DependencyProperty.Register("MoneyOwner", typeof(string), typeof(ExpenseEntryControl), new PropertyMetadata("Money"));
 
         public long EntryIndex { get; set; }
         public ExpenseEntryControl(long entryIndex, bool withDeleteButton)

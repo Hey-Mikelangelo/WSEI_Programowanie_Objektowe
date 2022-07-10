@@ -13,6 +13,7 @@
                 <ColumnDefinition Width="533*"/>
             </Grid.ColumnDefinitions>
             <StackPanel>
+                <Button x:Name="ButtonGoToSummaryWindow" Width="auto" HorizontalAlignment="Left">Go to summary window</Button>
                 <Border Padding="10,10,10,10">
                     <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="43" >
                         <Grid.ColumnDefinitions>
@@ -30,8 +31,8 @@
                             <ColumnDefinition Width="auto"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="MoneyType" VerticalAlignment="Stretch" FontSize="22" TextAlignment="Left" Margin="0,0,15,0"/>
-                        <ComboBox x:Name="MoneyTypeComboBox" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="22"/>
+                        <TextBlock Grid.Column="0" HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="MoneyOwner" VerticalAlignment="Stretch" FontSize="22" TextAlignment="Left" Margin="0,0,15,0"/>
+                        <ComboBox x:Name="MoneyOwnerComboBox" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="22"/>
                     </Grid>
                 </Border>
                 <Border Padding="10,10,10,10">
@@ -58,8 +59,12 @@
                     <Button x:Name="AddEntryButton">Add Entry</Button>
                 </Border>
             </StackPanel>
-            <StackPanel Grid.Column ="1" x:Name="EntriesStack">
-            </StackPanel>
+            <Border BorderThickness="5" Grid.Column ="1" BorderBrush="#FFB4B4B4" Padding="5,5,5,5">
+                <StackPanel x:Name="EntriesStack">
+
+                </StackPanel>
+            </Border>
+            
         </Grid>
 
     </Grid>

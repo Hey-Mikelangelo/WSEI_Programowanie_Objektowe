@@ -21,7 +21,7 @@
         <Label Margin="0,0,0,118" Grid.RowSpan="3">Names</Label>
         <ListView Grid.Row="2" x:Name="lstNames">
             <StackPanel Grid.Row="0" Grid.Column="0">
-                <local:ExpenseEntryControl Amount="100" Category="{Binding Category}" MoneyType="PLN" Date="2022-10-02">
+                <local:ExpenseEntryControl Amount="100" Category="{Binding Category}" MoneyOwner="PLN" Date="2022-10-02">
                 </local:ExpenseEntryControl>
             </StackPanel>
             <DataGrid Height="167" Width="398" d:ItemsSource="{d:SampleData ItemCount=5}" ClipboardCopyMode="ExcludeHeader"/>

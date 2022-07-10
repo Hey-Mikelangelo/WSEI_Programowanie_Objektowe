@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data;
+using System.Globalization;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -15,29 +17,22 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-public static class DatatableExtensions
-{
-    public static DataTable ToDataTable<T>(this IEnumerable<T> data)
-    {
-        PropertyDescriptorCollection properties =
-            TypeDescriptor.GetProperties(typeof(T));
-        DataTable table = new DataTable();
-        foreach (PropertyDescriptor prop in properties)
-            table.Columns.Add(prop.Name, Nullable.GetUnderlyingType(prop.PropertyType) ?? prop.PropertyType);
-        foreach (T item in data)
-        {
-            DataRow row = table.NewRow();
-            foreach (PropertyDescriptor prop in properties)
-                row[prop.Name] = prop.GetValue(item) ?? DBNull.Value;
-            table.Rows.Add(row);
-        }
-        return table;
-    }
-
-}
-
 namespace ExpenseMonitoringApp
 {
+    public static class WindowExtensions
+    {
+        public static void CopySizeAndPosition(this Window window, Window anotherWindow)
+        {
+            window.Left = anotherWindow.Left;
+            window.Top = anotherWindow.Top;
+            window.Width = anotherWindow.Width;
+            window.Height = anotherWindow.Height;
+            if (anotherWindow.WindowState == WindowState.Maximized)
+            {
+                window.WindowState = WindowState.Maximized;
+            }
+        }
+    }
     /// <summary>
     /// Interaction logic for AddEntriesWindow.xaml
     /// </summary>
@@ -49,31 +44,44 @@ namespace ExpenseMonitoringApp
             InitializeComponent();
             this.DataContext = model;
             RefreshCategoryNames();
-            RefreshMoneyTypes();
+            RefreshMoneyOwners();
             RefreshEntries();
             ResetAllFields();
             AddEntryButton.Click += AddEntryButton_Click;
             model.OnEntriesChanged += RefreshEntries;
+            ButtonGoToSummaryWindow.Click += ButtonGoToSummaryWindow_Click;
         }
 
-        private void RefreshMoneyTypes()
+        private void ButtonGoToSummaryWindow_Click(object sender, RoutedEventArgs e)
         {
-            var items = MoneyTypeComboBox.Items;
+            SpendingsSummaryWindow spendingsSummaryWindow = new SpendingsSummaryWindow();
+            spendingsSummaryWindow.CopySizeAndPosition(this);
+            spendingsSummaryWindow.Show();
+            Close();
+        }
+
+        private void RefreshMoneyOwners()
+        {
+            var items = MoneyOwnerComboBox.Items;
             items.Clear();
-            foreach (var item in model.GetMoneyTypesNames())
+            foreach (var item in Database.GetMoneyOwnersNames())
             {
                 if (items.Contains(item) == false)
                 {
                     items.Add(item);
                 }
             }
+            Button newOwnerButton = new Button();
+            newOwnerButton.Content = "New Owner";
+            newOwnerButton.Click += NewOwnerButton_Click;
+            items.Add(newOwnerButton);
         }
 
         private void RefreshCategoryNames()
         {
             var items = CategoryComboBox.Items;
             items.Clear();
-            foreach (var item in model.GetCategoryNames())
+            foreach (var item in Database.GetCategoryNames())
             {
                 items.Add(item);
             }
@@ -91,38 +99,71 @@ namespace ExpenseMonitoringApp
             CategoryComboBox.SelectedIndex = CategoryComboBox.Items.Count - 2;
         }
 
+        private void NewOwnerButton_Click(object sender, RoutedEventArgs e)
+        {
+            AddOwnerWindow addOwnerWindow = new AddOwnerWindow();
+            addOwnerWindow.ShowDialog();
+            RefreshMoneyOwners();
+            MoneyOwnerComboBox.SelectedIndex = MoneyOwnerComboBox.Items.Count - 2;
+        }
+
         private void RefreshEntries()
         {
+            
             var stackChildren = EntriesStack.Children;
             stackChildren.Clear();
             foreach (var item in model.GetEntryControls())
             {
-                if (stackChildren.Contains(item) == false)
-                {
-                    stackChildren.Add(item);
-                }
+                stackChildren.Add(item);
             }
         }
 
         private void AddEntryButton_Click(object sender, RoutedEventArgs e)
         {
             var categoryName = CategoryComboBox.SelectedItem as string;
+            char decimalSeparator = Convert.ToChar(Thread.CurrentThread.CurrentCulture.NumberFormat.NumberDecimalSeparator);
             string moneyCount = AmountTextBox.Text;
-            var moneyTypeName = MoneyTypeComboBox.SelectedItem as string;
+            char dotChar = '.';
+            char commaChar = ',';
+            if (decimalSeparator != commaChar)
+            {
+                moneyCount = moneyCount.Replace(commaChar, decimalSeparator);
+            }
+            if (decimalSeparator != dotChar)
+            {
+                moneyCount = moneyCount.Replace(dotChar, decimalSeparator);
+            }
+            var moneyOwnerName = MoneyOwnerComboBox.SelectedItem as string;
             string comment = CommentTextBox.Text;
-            model.AddEntry(categoryName, moneyCount, moneyTypeName, comment);
+            model.AddEntry(categoryName, moneyCount, moneyOwnerName, comment);
             RefreshEntries();
-            ResetAllFields();
+            ResetMoneyCount();
+            ResetComment();
         }
 
         private void ResetAllFields()
         {
             ResetCategoryComboBox();
-            AmountTextBox.Text = string.Empty;
-            if (MoneyTypeComboBox.Items.Count > 0)
+            ResetMoneyCount();
+            ResetComment();
+            ResetOwner();
+        }
+
+        private void ResetOwner()
+        {
+            if (MoneyOwnerComboBox.Items.Count > 0)
             {
-                MoneyTypeComboBox.SelectedItem = MoneyTypeComboBox.Items[0];
+                MoneyOwnerComboBox.SelectedItem = MoneyOwnerComboBox.Items[0];
             }
+        }
+
+        private void ResetMoneyCount()
+        {
+            AmountTextBox.Text = string.Empty;
+        }
+
+        private void ResetComment()
+        {
             CommentTextBox.Text = string.Empty;
         }
 

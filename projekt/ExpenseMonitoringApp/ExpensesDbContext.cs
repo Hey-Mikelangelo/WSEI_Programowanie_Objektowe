@@ -6,7 +6,7 @@ namespace ExpenseMonitoringApp
     {
         public DbSet<Category> Categories { get; set; }
         public DbSet<Entry> Entries { get; set; }
-        public DbSet<MoneyType> MoneyTypes { get; set; }
+        public DbSet<MoneyType> MoneyOwners { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public string ConnectionString { get; }
 
@@ -18,7 +18,6 @@ namespace ExpenseMonitoringApp
             if (createdNewDatabase)
             {
                 Categories.Add(new Category("Food"));
-                MoneyTypes.Add(new MoneyType("PLN"));
                 SaveChanges();
             }
         }

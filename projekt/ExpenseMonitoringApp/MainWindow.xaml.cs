@@ -47,16 +47,16 @@ namespace ExpenseMonitoringApp
                 Console.WriteLine($"Database ConnectionString: {db.ConnectionString}.");
 
                 // Read
-                Console.WriteLine("Querying for a money types");
+                Console.WriteLine("Querying for a money Owners");
                 
-                var moneyTypes = db.MoneyTypes;
+                var moneyOwners = db.MoneyOwners;
               
-                var entries = db.Entries.Include(x => x.MoneyType).Include(x => x.Category);
+                var entries = db.Entries.Include(x => x.MoneyOwner).Include(x => x.Category);
                 foreach (var item in entries)
                 {
-                    var moneyType = item.MoneyType;
+                    var moneyOwner = item.MoneyOwner;
                 }
-                foreach (var item in moneyTypes)
+                foreach (var item in moneyOwners)
                 {
                     var type = item;
                 }
