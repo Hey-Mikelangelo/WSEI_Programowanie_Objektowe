@@ -15,7 +15,7 @@
             <StackPanel>
                 <Button x:Name="ButtonGoToSummaryWindow" Width="auto" HorizontalAlignment="Left">Go to summary window</Button>
                 <Border Padding="10,10,10,10">
-                    <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="43" >
+                    <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="auto" >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="120"/>
                             <ColumnDefinition Width="*"/>

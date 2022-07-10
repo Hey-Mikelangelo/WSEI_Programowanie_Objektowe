@@ -27,7 +27,7 @@ namespace ExpenseMonitoringApp
             InitializeComponent();
             SetupMoneyOwnersComboBox();
             DatePickerFrom.SelectedDate = DateTime.Now.AddDays(-30);
-            DatePickerTo.SelectedDate = DateTime.Now.AddDays(1);
+            DatePickerTo.SelectedDate = DateTime.Now;
 
             DatePickerFrom.CalendarClosed += DatePickerFrom_CalendarClosed;
             DatePickerTo.CalendarClosed += DatePickerTo_CalendarClosed;
@@ -77,7 +77,7 @@ namespace ExpenseMonitoringApp
                     .Load();
 
                 DateTime fromDate = DatePickerFrom.SelectedDate.Value;
-                DateTime toDate = DatePickerTo.SelectedDate.Value;
+                DateTime toDate = DatePickerTo.SelectedDate.Value.AddDays(1);
 
                 var entries = db.Entries.Where(x => x.CreationTime <= toDate && x.CreationTime >= fromDate);
                 if (MoneyOwnerComboBox.SelectedIndex != 0)
@@ -87,7 +87,6 @@ namespace ExpenseMonitoringApp
                 }
                 entriesControls = EntryControlsProvider.GetEntryControls(entries, false);
                 SpendingSummaryDataGrid.ItemsSource = GetSpendingsSummaryEntries(entries);
-
             }
 
             var stackChildren = EntriesStack.Children;
@@ -120,6 +119,7 @@ namespace ExpenseMonitoringApp
                 var spendingsSummaryEntry = new SpendingsSummaryEntry(item.Key.Name, item.Sum());
                 spendingsSummaryEntries.Add(spendingsSummaryEntry);
             }
+            spendingsSummaryEntries.Add(new SpendingsSummaryEntry("All", moneyCountByCategory.SelectMany(x => x).Sum()));
             return spendingsSummaryEntries;
         }
 

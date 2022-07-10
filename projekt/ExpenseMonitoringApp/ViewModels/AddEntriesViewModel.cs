@@ -79,6 +79,7 @@ namespace ExpenseMonitoringApp.ViewModels
                     MessageBox.Show($"Money count cannot be less than 0");
                     return;
                 }
+                moneyAmount = decimal.Round(moneyAmount, 2);
                 long categoryId = selectedCategory.Id;
                 long moneyOwnerId = selectedMoneyOwner.Id;
                 Comment comment = new Comment(commentText);
