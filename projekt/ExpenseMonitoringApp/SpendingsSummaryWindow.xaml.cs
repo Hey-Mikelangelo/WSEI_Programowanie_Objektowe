@@ -2,24 +2,12 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace ExpenseMonitoringApp
 {
-    /// <summary>
-    /// Interaction logic for ViewEntriesWindow.xaml
-    /// </summary>
     public partial class SpendingsSummaryWindow : Window
     {
         public SpendingsSummaryWindow()
@@ -122,18 +110,17 @@ namespace ExpenseMonitoringApp
             spendingsSummaryEntries.Add(new SpendingsSummaryEntry("All", moneyCountByCategory.SelectMany(x => x).Sum()));
             return spendingsSummaryEntries;
         }
-
-    }
-
-    public class SpendingsSummaryEntry
-    {
-
-        public string CategoryName { get; set; }
-        public decimal Amount { get; set; }
-        public SpendingsSummaryEntry(string categoryName, decimal amount)
+        private class SpendingsSummaryEntry
         {
-            CategoryName = categoryName;
-            Amount = amount;
+            public string CategoryName { get; set; }
+            public decimal Amount { get; set; }
+            public SpendingsSummaryEntry(string categoryName, decimal amount)
+            {
+                CategoryName = categoryName;
+                Amount = amount;
+            }
         }
     }
+
+    
 }

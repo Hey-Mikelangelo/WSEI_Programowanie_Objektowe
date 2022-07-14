@@ -8,11 +8,19 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace ExpenseMonitoringApp.ViewModels
 {
+    /// <summary>
+    /// View Model for <see cref="AddEntriesWindow"/>
+    /// </summary>
     public class AddEntriesViewModel
     {
+        /// <summary>
+        /// Event Invoked when Entries list changes. You can get new list of entries using
+        /// <see cref="GetEntryControls()"/>.
+        /// </summary>
         public event Action OnEntriesChanged;
 
-        public List<ExpenseEntryControl> GetEntryControls(bool withDeleteButton = true)
+        /// <returns>List of entry controlls filled with up to date entry data</returns>
+        public List<ExpenseEntryControl> GetEntryControls()
         {
             using (var db = Database.GetNewDbContext())
             {
@@ -22,7 +30,8 @@ namespace ExpenseMonitoringApp.ViewModels
                     .Include(x => x.Comment)
                     .Load();
 
-                List<ExpenseEntryControl> entriesControls = EntryControlsProvider.GetEntryControls(db.Entries, true);
+                List<ExpenseEntryControl> entriesControls = 
+                    EntryControlsProvider.GetEntryControls(db.Entries, true);
                 foreach (var entryControl in entriesControls)
                 {
                     entryControl.OnEntryDeleteClicked += DeleteEntry;
@@ -32,6 +41,10 @@ namespace ExpenseMonitoringApp.ViewModels
 
         }
 
+        /// <summary>
+        /// Deletes entry with Id <paramref name="entryId"/> from the database.        
+        /// </summary>
+        /// <param name="entryId">id of entry ot delete</param>
         private void DeleteEntry(long entryId)
         {
             using (var db = Database.GetNewDbContext())
@@ -45,6 +58,14 @@ namespace ExpenseMonitoringApp.ViewModels
             }
         }
 
+
+        /// <summary>
+        /// Creates and adds new entry to the database.
+        /// </summary>
+        /// <param name="categoryName"></param>
+        /// <param name="moneyCountString"></param>
+        /// <param name="moneyOwnerName"></param>
+        /// <param name="commentText"></param>
         public void AddEntry(string categoryName, string moneyCountString, string moneyOwnerName, string commentText)
         {
             using (var db = Database.GetNewDbContext())

@@ -7,8 +7,10 @@ namespace ExpenseMonitoringApp.Helpers
 {
     public static class Database
     {
+        /// <returns><see cref="ExpensesDbContext"/> database context</returns>
         public static ExpensesDbContext GetNewDbContext() => new ExpensesDbContext();
 
+        /// <returns>List of strings representing money owners names in the database</returns>
         public static List<string> GetMoneyOwnersNames()
         {
             using (var db = GetNewDbContext())
@@ -25,6 +27,7 @@ namespace ExpenseMonitoringApp.Helpers
 
         }
 
+        /// <returns>List of strings representing entries categories names in the database</returns>
         public static List<string> GetCategoryNames()
         {
             List<string> categoriesNames = new List<string>();

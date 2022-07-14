@@ -20,7 +20,12 @@ namespace ExpenseMonitoringApp
     /// </summary>
     public partial class ExpenseEntryControl : UserControl
     {
-        public event System.Action<long>? OnEntryDeleteClicked;
+        /// <summary>
+        /// Event invoked when delete button of <see cref="ExpenseEntryControl"/> is clicked.
+        /// Will not be invoked if <see cref="ExpenseEntryControl"/> is created 
+        /// with "withDeleteButton" argument = false
+        /// </summary>
+        public event System.Action<long> OnEntryDeleteClicked;
         public string Category
         {
             get { return (string)GetValue(CategoryProperty); }
@@ -32,7 +37,9 @@ namespace ExpenseMonitoringApp
                 new PropertyMetadata("Empty category"));
 
 
-
+        /// <summary>
+        /// Money amount
+        /// </summary>
         public string Amount
         {
             get { return (string)GetValue(AmountProperty); }
@@ -43,7 +50,9 @@ namespace ExpenseMonitoringApp
             DependencyProperty.Register("Amount", typeof(string), typeof(ExpenseEntryControl), new PropertyMetadata("0"));
 
 
-
+        /// <summary>
+        /// Creation Date
+        /// </summary>
         public DateTime Date
         {
             get { return (DateTime)GetValue(DateProperty); }
