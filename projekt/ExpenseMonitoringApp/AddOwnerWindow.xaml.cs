@@ -30,7 +30,7 @@ namespace ExpenseMonitoringApp
                     MessageBox.Show($"Owner with name \"{newOwnerName}\" already exists");
                     return;
                 }
-                MoneyType owner = new MoneyType(newOwnerName);
+                Owner owner = new Owner(newOwnerName);
                 db.MoneyOwners.Add(owner);
                 db.SaveChanges();
             }

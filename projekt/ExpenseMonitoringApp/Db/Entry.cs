@@ -9,7 +9,7 @@ public class Entry
     public long? CommentId { get; set; }
     public DateTime CreationTime { get; set; }
     public Category Category { get; set; }
-    public MoneyType MoneyOwner { get; set; }
+    public Owner MoneyOwner { get; set; }
     public Comment Comment { get; set; }
 
     public Entry(long categoryId, decimal moneyCount, long moneyOwnerId, DateTime creationTime, long? commentId = null)

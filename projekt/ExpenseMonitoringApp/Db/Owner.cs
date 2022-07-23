@@ -1,10 +1,9 @@
-﻿public class MoneyType
+﻿public class Owner
 {
-
     public long Id { get; set; }
     public string Name { get; set; }
 
-    public MoneyType(string name)
+    public Owner(string name)
     {
         Name = name;
     }
